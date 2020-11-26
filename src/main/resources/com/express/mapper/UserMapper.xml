@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.express.mapper.UserMapper">
+    <select id="findByUsername" resultType="com.express.entity.SysUser">
+        SELECT  [id]
+              ,[username]
+              ,[password]
+              ,[is_del]
+              ,[distributor_id]
+          FROM [APIServiceT].[dbo].[sys_user]
+          where
+          is_del = 0
+        	and  username='admin8'
+    </select>
+    <select id="findUserById" resultType="com.express.entity.SysUser">
+      SELECT * FROM [APIServiceT].[dbo].[sys_user]
+      where
+      id=#{Id}
+    </select>
+</mapper>

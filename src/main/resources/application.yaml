@@ -1,11 +1,27 @@
+server:
+  port: 8888
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?useSSL=false
-    username: root
-    password: ebid$2018
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master,如果你主从默认下主库的名称就是master可不定义此项。
+      datasource:
+        master:
+          username: Rock
+          password: 1234qwer!@
+          url: jdbc:sqlserver://172.16.90.12:1433;databasename=express_sunjuice
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        api:
+          username: Rock
+          password: 1234qwer!@
+          url: jdbc:sqlserver://172.16.90.12:1433;databasename=APIServiceT
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+
 mybatis:
   config-location: classpath:mybatis.xml
 debug: true
-server:
-  port: 8888
+
+
+
+product:
+  maxSize: 20

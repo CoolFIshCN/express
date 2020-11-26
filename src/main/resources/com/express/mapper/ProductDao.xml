@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.express.mapper.ProductDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.express.entity.ProductEntity" id="productMap">
+        <result property="id" column="id"/>
+        <result property="briefDescription" column="brief_description" />
+        <result property="content" column="content"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="productCategory1stName" column="product_category_1st_name"/>
+        <result property="productCategory1stNo" column="product_category_1st_no"/>
+        <result property="productCategory2ndName" column="product_category_2nd_name"/>
+        <result property="productCategory2ndNo" column="product_category_2nd_no"/>
+        <result property="productName" column="product_name"/>
+        <result property="productNumber" column="product_number"/>
+        <result property="productThumbnailPix" column="product_thumbnail_pix"/>
+        <result property="spec" column="spec"/>
+        <result property="skuWeightUnit" column="sku_weight_unit"/>
+        <result property="skuUnit" column="sku_unit"/>
+        <result property="erpSellingUnit" column="erp_selling_unit"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="modifierId" column="modifier_id"/>
+        <result property="statusId" column="status_id"/>
+        <result property="productCategory1stId" column="product_category_1st_id"/>
+        <result property="productCategory2ndId" column="product_category_2nd_id"/>
+        <result property="skuWeight" column="sku_weight"/>
+        <result property="boxLoadedWeight" column="box_loaded_weight"/>
+        <result property="fenpa" column="fenpa"/>
+        <result property="ecName" column="ec_name"/>
+        <result property="productTypeId" column="product_type_id"/>
+        <result property="boxLoadedVolume" column="box_loaded_volume"/>
+        <result property="boxLoadedAmount" column="box_loaded_amount"/>
+        <result property="boxLoadedGrossWeight" column="box_loaded_gross_weight"/>
+        <result property="boxLoadedNetWeight" column="box_loaded_net_weight"/>
+        <result property="warrantyDays" column="warranty_days"/>
+        <result property="erpSyncDate" column="erp_sync_date"/>
+        <result property="skuGrossWeight" column="sku_gross_weight"/>
+        <result property="companyId" column="company_id"/>
+        <result property="boxLoadedVolumeUnit" column="box_loaded_volume_unit"/>
+        <result property="temperatureTypeId" column="temperature_type_id"/>
+        <result property="distributorId" column="distributor_id"/>
+        <result property="productNumberSap" column="product_number_sap"/>
+        <result property="barCode" column="bar_code"/>
+        <result property="boxLoadedHeight" column="box_loaded_height"/>
+        <result property="boxLoadedLength" column="box_loaded_length"/>
+        <result property="boxLoadedWidth" column="box_loaded_width"/>
+    </resultMap>
+
+<!--  新增返回自增主键  -->
+    <insert id="insertOne" parameterType="com.express.entity.ProductEntity" useGeneratedKeys="true" keyProperty="id">
+    insert into
+	[express_sunjuice].[dbo].[product]
+        (
+			brief_description,
+			create_date,
+			modify_date,
+			product_category_1st_name,
+			product_category_1st_no,
+			product_category_2nd_name,
+			product_category_2nd_no,
+			product_name,
+			product_number,
+			product_thumbnail_pix,
+			spec,
+			sku_weight_unit,
+			sku_unit,
+			erp_selling_unit,
+			creator_id,
+			modifier_id,
+			status_id,
+			product_category_1st_id,
+			product_category_2nd_id,
+			sku_weight,
+			box_loaded_weight,
+			fenpa,
+			ec_name,
+			product_type_id,
+			box_loaded_volume,
+			box_loaded_amount,
+			box_loaded_gross_weight,
+			box_loaded_net_weight,
+			warranty_days,
+			erp_sync_date,
+			sku_gross_weight,
+			company_id,
+			box_loaded_volume_unit,
+			temperature_type_id,
+			distributor_id,
+			product_number_sap,
+			bar_code,
+			box_loaded_height,
+			box_loaded_length,
+			box_loaded_width
+        )VALUES(
+                #{briefDescription,jdbcType=VARCHAR},
+				#{createDate,jdbcType=TIMESTAMP},
+				#{modifyDate,jdbcType=TIMESTAMP},
+				#{productCategory1stName,jdbcType=VARCHAR},
+				#{productCategory1stNo,jdbcType=VARCHAR},
+				#{productCategory2ndName,jdbcType=VARCHAR},
+				#{productCategory2ndNo,jdbcType=VARCHAR},
+				#{productName,jdbcType=VARCHAR},
+				#{productNumber,jdbcType=VARCHAR},
+				#{productThumbnailPix,jdbcType=VARCHAR},
+				#{spec,jdbcType=VARCHAR},
+				#{skuWeightUnit,jdbcType=VARCHAR},
+				#{skuUnit,jdbcType=VARCHAR},
+				#{erpSellingUnit,jdbcType=VARCHAR},
+				#{creatorId,jdbcType=DECIMAL},
+				#{modifierId,jdbcType=DECIMAL},
+				#{statusId,jdbcType=DECIMAL},
+				#{productCategory1stId,jdbcType=DECIMAL},
+				#{productCategory2ndId,jdbcType=DECIMAL},
+				#{skuWeight,jdbcType=DOUBLE},
+				#{boxLoadedWeight,jdbcType=DOUBLE},
+				#{fenpa,jdbcType=VARCHAR},
+				#{ecName,jdbcType=VARCHAR},
+				#{productTypeId,jdbcType=DECIMAL},
+				#{boxLoadedVolume,jdbcType=DOUBLE},
+				#{boxLoadedAmount,jdbcType=INTEGER},
+				#{boxLoadedGrossWeight,jdbcType=DOUBLE},
+				#{boxLoadedNetWeight,jdbcType=DOUBLE},
+				#{warrantyDays,jdbcType=DATE},
+				#{erpSyncDate,jdbcType=TIMESTAMP},
+				#{skuGrossWeight,jdbcType=DOUBLE},
+				#{companyId,jdbcType=DECIMAL},
+				#{boxLoadedVolumeUnit,jdbcType=VARCHAR},
+				#{temperatureTypeId,jdbcType=DECIMAL},
+				#{distributorId,jdbcType=DECIMAL},
+				#{productNumberSap,jdbcType=VARCHAR},
+				#{barCode,jdbcType=VARCHAR},
+				#{boxLoadedHeight,jdbcType=DOUBLE},
+				#{boxLoadedLength,jdbcType=DOUBLE},
+				#{boxLoadedWidth,jdbcType=DOUBLE}
+						);
+
+    </insert>
+</mapper>
