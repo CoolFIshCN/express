@@ -39,19 +39,19 @@ public class ProductEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private String productCategory1stName;
+	private String productCategory_1stName;
 	/**
 	 * $column.comments
 	 */
-	private String productCategory1stNo;
+	private String productCategory_1stNo;
 	/**
 	 * $column.comments
 	 */
-	private String productCategory2ndName;
+	private String productCategory_2ndName;
 	/**
 	 * $column.comments
 	 */
-	private String productCategory2ndNo;
+	private String productCategory_2ndNo;
 	/**
 	 * 物料名称
 	 */
@@ -95,11 +95,11 @@ public class ProductEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private Long productCategory1stId;
+	private Long productCategory_1stId;
 	/**
 	 * $column.comments
 	 */
-	private Long productCategory2ndId;
+	private Long productCategory_2ndId;
 	/**
 	 * sku净重 (公斤, 小数后二位)
 	 */
@@ -229,36 +229,36 @@ public class ProductEntity implements Serializable {
 		this.modifyDate = modifyDate;
 	}
 
-	public String getProductCategory1stName() {
-		return productCategory1stName;
+	public String getProductCategory_1stName() {
+		return productCategory_1stName;
 	}
 
-	public void setProductCategory1stName(String productCategory1stName) {
-		this.productCategory1stName = productCategory1stName;
+	public void setProductCategory_1stName(String productCategory_1stName) {
+		this.productCategory_1stName = productCategory_1stName;
 	}
 
-	public String getProductCategory1stNo() {
-		return productCategory1stNo;
+	public String getProductCategory_1stNo() {
+		return productCategory_1stNo;
 	}
 
-	public void setProductCategory1stNo(String productCategory1stNo) {
-		this.productCategory1stNo = productCategory1stNo;
+	public void setProductCategory_1stNo(String productCategory_1stNo) {
+		this.productCategory_1stNo = productCategory_1stNo;
 	}
 
-	public String getProductCategory2ndName() {
-		return productCategory2ndName;
+	public String getProductCategory_2ndName() {
+		return productCategory_2ndName;
 	}
 
-	public void setProductCategory2ndName(String productCategory2ndName) {
-		this.productCategory2ndName = productCategory2ndName;
+	public void setProductCategory_2ndName(String productCategory_2ndName) {
+		this.productCategory_2ndName = productCategory_2ndName;
 	}
 
-	public String getProductCategory2ndNo() {
-		return productCategory2ndNo;
+	public String getProductCategory_2ndNo() {
+		return productCategory_2ndNo;
 	}
 
-	public void setProductCategory2ndNo(String productCategory2ndNo) {
-		this.productCategory2ndNo = productCategory2ndNo;
+	public void setProductCategory_2ndNo(String productCategory_2ndNo) {
+		this.productCategory_2ndNo = productCategory_2ndNo;
 	}
 
 	public String getProductName() {
@@ -341,20 +341,20 @@ public class ProductEntity implements Serializable {
 		this.statusId = statusId;
 	}
 
-	public Long getProductCategory1stId() {
-		return productCategory1stId;
+	public Long getProductCategory_1stId() {
+		return productCategory_1stId;
 	}
 
-	public void setProductCategory1stId(Long productCategory1stId) {
-		this.productCategory1stId = productCategory1stId;
+	public void setProductCategory_1stId(Long productCategory_1stId) {
+		this.productCategory_1stId = productCategory_1stId;
 	}
 
-	public Long getProductCategory2ndId() {
-		return productCategory2ndId;
+	public Long getProductCategory_2ndId() {
+		return productCategory_2ndId;
 	}
 
-	public void setProductCategory2ndId(Long productCategory2ndId) {
-		this.productCategory2ndId = productCategory2ndId;
+	public void setProductCategory_2ndId(Long productCategory_2ndId) {
+		this.productCategory_2ndId = productCategory_2ndId;
 	}
 
 	public Double getSkuWeight() {

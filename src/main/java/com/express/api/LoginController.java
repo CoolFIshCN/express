@@ -5,6 +5,7 @@ package com.express.api;
 import com.express.util.JWTService;
 import com.express.entity.SysUser;
 import com.express.service.UserService;
+import com.express.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,20 +25,21 @@ public class LoginController {
 
     //生成token并返回到前端
     @PostMapping("/doLogin")
-    public String login(@RequestBody SysUser sysUser) {
+    public R login(@RequestBody SysUser sysUser) {
 
         //获取用户信息,可自行创建User类
         SysUser res = userService.checkPassword(sysUser.getUsername(),sysUser.getPassword());
         Map<String,String> userInfo = createUserInfoMap(res);
 
         String token = jwtService.createToken(userInfo, 1);
-        return token;
+        return R.ok().put("token",token);
     }
 
     private Map<String, String> createUserInfoMap(SysUser res) {
         Map<String,String> userInfo = new HashMap<>();
         userInfo.put("username", res.getUsername());
         userInfo.put("password", res.getPassword());
+        userInfo.put("distributorId", res.getDistributorId().toString());
         return userInfo;
 
     }

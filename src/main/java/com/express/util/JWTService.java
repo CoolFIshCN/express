@@ -490,6 +490,8 @@ public class JWTService {
         user.setUsername(jwt.getClaim("username").asString());
 
         user.setPassword(jwt.getClaim("password").asString());
+        String distributorIdStr = jwt.getClaim("distributorId").asString();
+        user.setDistributorId(Long.parseLong(distributorIdStr));
 
 
         return user;

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +57,7 @@ public class ProductController {
         // 获取进销商id
         SysUser byUsername = userMapper.findByUsername(user.getUsername());
         if (null ==byUsername || null == byUsername.getDistributorId()){
-            return R.error("无效进销商");
+            return R.error("无效经销商");
         }
         Long distributorId = byUsername.getDistributorId();
 
@@ -69,5 +70,38 @@ public class ProductController {
 
 
         return R.ok();
+    }
+
+
+    /**
+     * 根据物料编号获取物料所有信息
+     * @param token
+     * @param productNumber
+     * @return
+     */
+    @GetMapping("/getByProductNumber")
+    @ResponseBody
+    public R getByProductNumber(@RequestHeader("token")String token,@RequestParam("productNumber")String productNumber){
+        //获取用户信息
+        SysUser user  = jwtService.getUser(token);
+        if (null ==user || null == user.getUsername()){
+            return R.error("无效token");
+        }
+        // 获取进销商id
+        SysUser byUsername = userMapper.findByUsername(user.getUsername());
+        if (null ==byUsername || null == byUsername.getDistributorId()){
+            return R.error("无效经销商");
+        }
+        Long distributorId = byUsername.getDistributorId();
+
+        List<ProductDto> reList = new ArrayList<>();
+        // 查询
+        List<ProductDto> productDtoList = productService.getByProductNumber(distributorId,productNumber);
+
+        if (null != productDtoList && productDtoList.size() > 0){
+            reList = productDtoList;
+        }
+
+        return R.ok().put("reList",reList);
     }
 }

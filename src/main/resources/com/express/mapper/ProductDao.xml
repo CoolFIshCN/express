@@ -10,10 +10,10 @@
         <result property="content" column="content"/>
         <result property="createDate" column="create_date"/>
         <result property="modifyDate" column="modify_date"/>
-        <result property="productCategory1stName" column="product_category_1st_name"/>
-        <result property="productCategory1stNo" column="product_category_1st_no"/>
-        <result property="productCategory2ndName" column="product_category_2nd_name"/>
-        <result property="productCategory2ndNo" column="product_category_2nd_no"/>
+        <result property="productCategory_1stName" column="product_category_1st_name"/>
+        <result property="productCategory_1stNo" column="product_category_1st_no"/>
+        <result property="productCategory_2ndName" column="product_category_2nd_name"/>
+        <result property="productCategory_2ndNo" column="product_category_2nd_no"/>
         <result property="productName" column="product_name"/>
         <result property="productNumber" column="product_number"/>
         <result property="productThumbnailPix" column="product_thumbnail_pix"/>
@@ -24,8 +24,8 @@
         <result property="creatorId" column="creator_id"/>
         <result property="modifierId" column="modifier_id"/>
         <result property="statusId" column="status_id"/>
-        <result property="productCategory1stId" column="product_category_1st_id"/>
-        <result property="productCategory2ndId" column="product_category_2nd_id"/>
+        <result property="productCategory_1stId" column="product_category_1st_id"/>
+        <result property="productCategory_2ndId" column="product_category_2nd_id"/>
         <result property="skuWeight" column="sku_weight"/>
         <result property="boxLoadedWeight" column="box_loaded_weight"/>
         <result property="fenpa" column="fenpa"/>
@@ -57,10 +57,6 @@
 			brief_description,
 			create_date,
 			modify_date,
-			product_category_1st_name,
-			product_category_1st_no,
-			product_category_2nd_name,
-			product_category_2nd_no,
 			product_name,
 			product_number,
 			product_thumbnail_pix,
@@ -71,8 +67,6 @@
 			creator_id,
 			modifier_id,
 			status_id,
-			product_category_1st_id,
-			product_category_2nd_id,
 			sku_weight,
 			box_loaded_weight,
 			fenpa,
@@ -98,10 +92,6 @@
                 #{briefDescription,jdbcType=VARCHAR},
 				#{createDate,jdbcType=TIMESTAMP},
 				#{modifyDate,jdbcType=TIMESTAMP},
-				#{productCategory1stName,jdbcType=VARCHAR},
-				#{productCategory1stNo,jdbcType=VARCHAR},
-				#{productCategory2ndName,jdbcType=VARCHAR},
-				#{productCategory2ndNo,jdbcType=VARCHAR},
 				#{productName,jdbcType=VARCHAR},
 				#{productNumber,jdbcType=VARCHAR},
 				#{productThumbnailPix,jdbcType=VARCHAR},
@@ -112,8 +102,6 @@
 				#{creatorId,jdbcType=DECIMAL},
 				#{modifierId,jdbcType=DECIMAL},
 				#{statusId,jdbcType=DECIMAL},
-				#{productCategory1stId,jdbcType=DECIMAL},
-				#{productCategory2ndId,jdbcType=DECIMAL},
 				#{skuWeight,jdbcType=DOUBLE},
 				#{boxLoadedWeight,jdbcType=DOUBLE},
 				#{fenpa,jdbcType=VARCHAR},

@@ -22,5 +22,13 @@ public interface ProductService extends IService<ProductEntity> {
      * @return
      */
     boolean updateOrSave(List<ProductDto> productList, Long distributorId);
+
+    /**
+     * 根据经销商id和物料编号查询
+     * @param distributorId
+     * @param productNumber
+     * @return
+     */
+    List<ProductDto> getByProductNumber(Long distributorId, String productNumber);
 }
 

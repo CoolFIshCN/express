@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.express.mapper.DistributorProductDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.express.entity.DistributorProductEntity" id="distributorProductMap">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="distributorLevel" column="distributor_level"/>
+        <result property="distributorName" column="distributor_name"/>
+        <result property="distributorNumber" column="distributor_number"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="productName" column="product_name"/>
+        <result property="productNumber" column="product_number"/>
+        <result property="sellPrice" column="sell_price"/>
+        <result property="sellUnit" column="sell_unit"/>
+        <result property="stockUnit" column="stock_unit"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="statusId" column="status_id"/>
+        <result property="modifierId" column="modifier_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="distributorId" column="distributor_id"/>
+        <result property="unitWeight" column="unit_weight"/>
+        <result property="version" column="version"/>
+        <result property="ecAvailableStock" column="ec_available_stock"/>
+        <result property="ecOccupiedStock" column="ec_occupied_stock"/>
+        <result property="ecStock" column="ec_stock"/>
+        <result property="safeStockAmount" column="safe_stock_amount"/>
+        <result property="productStockTypeId" column="product_stock_type_id"/>
+        <result property="originalRequestId" column="original_request_id"/>
+        <result property="currency" column="currency"/>
+        <result property="sellUnitSkuAmount" column="sell_unit_sku_amount"/>
+        <result property="companyId" column="company_id"/>
+        <result property="productNumberSap" column="product_number_sap"/>
+        <result property="orderAmountLeast" column="order_amount_least"/>
+        <result property="stocksAmountMax" column="stocks_amount_max"/>
+    </resultMap>
+    <!--  经销商物料  -->
+    <insert id="insertOne">
+        INSERT INTO distributor_product
+        (
+        product_number,
+        product_id,
+        distributor_id,
+        safe_stock_amount,
+        order_amount_least,
+        stocks_amount_max
+        )
+        VALUES
+        (
+        #{productNumber,jdbcType=VARCHAR}
+        ,#{productId,jdbcType=DECIMAL}
+        ,#{distributorId,jdbcType=DECIMAL}
+        ,#{safeStockAmount,jdbcType=INTEGER}
+        ,#{orderAmountLeast,jdbcType=INTEGER}
+        ,#{stocksAmountMax,jdbcType=INTEGER}
+        );
+    </insert>
+
+
+</mapper>
