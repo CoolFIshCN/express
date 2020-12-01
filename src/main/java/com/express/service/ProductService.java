@@ -3,6 +3,7 @@ package com.express.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.express.dto.ProductDto;
 import com.express.entity.ProductEntity;
+import com.express.entity.SysUser;
 
 import java.util.List;
 
@@ -18,17 +19,17 @@ public interface ProductService extends IService<ProductEntity> {
     /**
      * 更新或者添加物料
      * @param productList
-     * @param distributorId
+     * @param
      * @return
      */
-    boolean updateOrSave(List<ProductDto> productList, Long distributorId);
+    boolean updateOrSave(List<ProductDto> productList, SysUser user);
 
     /**
      * 根据经销商id和物料编号查询
      * @param distributorId
-     * @param productNumber
+     * @param
      * @return
      */
-    List<ProductDto> getByProductNumber(Long distributorId, String productNumber);
+    List<ProductDto> getByProductNumber(Long distributorId, List<String> productNumberList);
 }
 

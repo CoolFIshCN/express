@@ -1,6 +1,7 @@
 package com.express.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 /**
@@ -72,6 +73,11 @@ public class ProductDto implements Serializable {
     // 单箱内sku数
     private Integer boxLoadedAmount;
 
+    // 当前操作人id
+    private Long userId;
+
+    // 当前时间
+    private Date nowTime;
 
     public String getProductNumber() {
         return productNumber;
@@ -231,5 +237,21 @@ public class ProductDto implements Serializable {
 
     public void setBoxLoadedAmount(Integer boxLoadedAmount) {
         this.boxLoadedAmount = boxLoadedAmount;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Date getNowTime() {
+        return nowTime;
+    }
+
+    public void setNowTime(Date nowTime) {
+        this.nowTime = nowTime;
     }
 }

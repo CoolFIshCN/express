@@ -39,6 +39,8 @@ public class UserService {
         SysUser byUsername = userMapper.findByUsername(username);
         if (null != byUsername && null != byUsername.getPassword() && md5pw.equals(byUsername.getPassword())) {
             return byUsername;
+        }else {
+            new RuntimeException("用户登录信息错误："+username+"-"+"password");
         }
         return sysUser;
     }

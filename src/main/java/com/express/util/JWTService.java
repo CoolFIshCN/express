@@ -9,9 +9,7 @@ import com.auth0.jwt.JWTVerifier;
 
 import com.auth0.jwt.algorithms.Algorithm;
 
-import com.auth0.jwt.exceptions.AlgorithmMismatchException;
-
-import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.exceptions.*;
 
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -20,18 +18,26 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 import com.express.common.Payload;
 import com.express.entity.SysUser;
 
+import com.express.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import org.springframework.util.StringUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 @Service("JWTService")
 public class JWTService {
 
 
-    private String secret = "secret";
+    @Value("${jwt.secretKey}")
+    private String secret;
+
+    @Value("${jwt.tokenOutTime}")
+    private Long  tokenOutTime;
 
     private String issuer = "USERSERVICE";//发布者
 
@@ -40,6 +46,11 @@ public class JWTService {
     private String audience = "APP";//签名的观众 也可以理解谁接受签名的
 
     private Map<String, String> claims;//自定义签名
+
+
+    // 用户
+    @Autowired
+    private UserService userService;
 
 
     /**
@@ -487,12 +498,8 @@ public class JWTService {
 
         SysUser user = new SysUser();
         Map<String, Claim> claims = jwt.getClaims();
-        user.setUsername(jwt.getClaim("username").asString());
-
-        user.setPassword(jwt.getClaim("password").asString());
-        String distributorIdStr = jwt.getClaim("distributorId").asString();
-        user.setDistributorId(Long.parseLong(distributorIdStr));
-
+        String userId = claims.get("userId").asString();
+        user = userService.findUserById(userId);
 
         return user;
 
@@ -559,4 +566,59 @@ public class JWTService {
     public void setSecret(String secret) {
         this.secret = secret;
     }
+
+
+    public  String getToken(SysUser user) {
+
+        String token = null;
+        try {
+            Long currentTime = System.currentTimeMillis();
+            String tokenId = new StringBuilder(String.valueOf(currentTime)).append(user.getId()).toString();
+            Date expiresAt = new Date(currentTime + tokenOutTime);
+            token = JWT.create()
+                    // 发行者
+                    .withIssuer("")
+                    // 自定义属性
+                    .withClaim("userId", user.getId())
+                    // 签发时间
+                    .withIssuedAt(new Date(currentTime))
+                    // 唯一id
+                    .withJWTId(tokenId)
+                    // token过期时间
+                    .withExpiresAt(expiresAt)
+                    // 使用了HMAC256加密算法。
+                    .sign(Algorithm.HMAC256(secret));
+        } catch (JWTCreationException exception){
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        return token;
+    }
+
+
+    /**
+     * 验证token
+     * @param token
+     * @return
+     */
+    public  Boolean decryptToken(final String token) {
+        if (token == null){
+            return false;
+        }
+        DecodedJWT jwt = null;
+        try {
+            // 使用了HMAC256加密算法。
+            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret))
+                    .withIssuer("")
+                    .build(); //Reusable verifier instance
+            // 对字段进行校验，超时抛出JWTVerificationException类的子类InvalidClaimException
+            jwt = verifier.verify(token);
+        } catch (JWTVerificationException exception){
+            return false;
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
 }

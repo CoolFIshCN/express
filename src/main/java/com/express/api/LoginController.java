@@ -2,6 +2,7 @@ package com.express.api;
 
 
 
+import com.express.annotation.PassToken;
 import com.express.util.JWTService;
 import com.express.entity.SysUser;
 import com.express.service.UserService;
@@ -24,25 +25,20 @@ public class LoginController {
 
 
     //生成token并返回到前端
+    @PassToken(required = true)
     @PostMapping("/doLogin")
     public R login(@RequestBody SysUser sysUser) {
 
         //获取用户信息,可自行创建User类
-        SysUser res = userService.checkPassword(sysUser.getUsername(),sysUser.getPassword());
-        Map<String,String> userInfo = createUserInfoMap(res);
+        SysUser user = userService.checkPassword(sysUser.getUsername(),sysUser.getPassword());
+        if (null == user || null == user.getId()){
+            return R.error("账号或密码错误");
+        }
+        String token = jwtService.getToken(user);
 
-        String token = jwtService.createToken(userInfo, 1);
         return R.ok().put("token",token);
     }
 
-    private Map<String, String> createUserInfoMap(SysUser res) {
-        Map<String,String> userInfo = new HashMap<>();
-        userInfo.put("username", res.getUsername());
-        userInfo.put("password", res.getPassword());
-        userInfo.put("distributorId", res.getDistributorId().toString());
-        return userInfo;
-
-    }
 
 
 

@@ -10,7 +10,7 @@
           FROM [APIServiceT].[dbo].[sys_user]
           where
           is_del = 0
-        	and  username='admin8'
+        	and  username=#{username}
     </select>
     <select id="findUserById" resultType="com.express.entity.SysUser">
       SELECT * FROM [APIServiceT].[dbo].[sys_user]
