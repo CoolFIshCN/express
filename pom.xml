@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.pjb</groupId>
-    <artifactId>springboot-jjwt</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>express</artifactId>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>springboot-jjwt</name>

@@ -41,20 +41,28 @@
         INSERT INTO distributor_product
         (
         product_number,
+        product_name,
         product_id,
         distributor_id,
         safe_stock_amount,
         order_amount_least,
-        stocks_amount_max
+        stocks_amount_max,
+        create_date,
+        creator_id,
+        status_id
         )
         VALUES
         (
         #{productNumber,jdbcType=VARCHAR}
+        ,#{productName,jdbcType=VARCHAR}
         ,#{productId,jdbcType=DECIMAL}
         ,#{distributorId,jdbcType=DECIMAL}
         ,#{safeStockAmount,jdbcType=INTEGER}
         ,#{orderAmountLeast,jdbcType=INTEGER}
         ,#{stocksAmountMax,jdbcType=INTEGER}
+        ,#{createDate,jdbcType=TIMESTAMP}
+        ,#{creatorId,jdbcType=DECIMAL}
+        ,#{statusId,jdbcType=DECIMAL}
         );
     </insert>
 

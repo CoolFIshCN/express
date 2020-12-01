@@ -105,7 +105,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, ProductEntity> i
                 Long productId = productEntity.getId();
                 if (insert == 1) {
                     // 构建经销商物料实体
-                    DistributorProductEntity distributorProductEntity = createDistributorProductEntity(productDto);
+                    DistributorProductEntity distributorProductEntity = this.createDistributorProductEntity(productDto);
                     distributorProductEntity.setProductId(productId);
                     distributorProductEntity.setDistributorId(user.getDistributorId());
                     // 添加人和添加时间
