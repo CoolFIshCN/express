@@ -36,8 +36,10 @@ logging:
 
 product:
   maxSize: 20
+store:
+  maxSize: 20
 
 jwt:
   secretKey: "SECRET_KEY"
   #   60秒
-  tokenOutTime: 60000
+  tokenOutTime: 600000

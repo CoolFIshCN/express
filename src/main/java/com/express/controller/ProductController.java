@@ -30,22 +30,20 @@ public class ProductController {
     // 最大条数
     @Value("${product.maxSize}")
     private volatile int PRODUCT_MAX_SIZE;
-
+    /**
+     * 用户
+     */
+    @Autowired
+    private UserMapper userMapper;
+    // jwt
+    @Autowired
+    private JWTService jwtService;
     /**
      * 物料
      */
     @Autowired
     private ProductService productService;
 
-    // jwt
-    @Autowired
-    private JWTService jwtService;
-
-    /**
-     * 用户
-     */
-    @Autowired
-    private UserMapper userMapper;
 
     /**
      * 更新或者添加物料

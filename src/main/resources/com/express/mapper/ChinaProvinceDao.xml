@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.express.mapper.ChinaProvinceDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.express.entity.ChinaProvinceEntity" id="chinaProvinceMap">
+        <result property="id" column="id"/>
+        <result property="cnName" column="cn_name"/>
+        <result property="createDate" column="create_date"/>
+        <result property="enName" column="en_name"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="name" column="name"/>
+        <result property="remark" column="remark"/>
+        <result property="twName" column="tw_name"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="modifierId" column="modifier_id"/>
+        <result property="postCode" column="post_code"/>
+    </resultMap>
+
+
+</mapper>

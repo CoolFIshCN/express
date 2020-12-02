@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.express.mapper.DistributorStoreDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.express.entity.DistributorStoreEntity" id="distributorStoreMap">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="deliveryAddressDetail" column="delivery_address_detail"/>
+        <result property="remark" column="remark"/>
+        <result property="storeAddressOriginal" column="store_address_original"/>
+        <result property="storeCityOriginal" column="store_city_original"/>
+        <result property="storeCountyOriginal" column="store_county_original"/>
+        <result property="storeNameKd" column="store_name_kd"/>
+        <result property="storeNameOriginal" column="store_name_original"/>
+        <result property="storeNumberKd" column="store_number_kd"/>
+        <result property="storeNumberOriginal" column="store_number_original"/>
+        <result property="storeProvinceOriginal" column="store_province_original"/>
+        <result property="storeTownshipOriginal" column="store_township_original"/>
+        <result property="deliveryAreaId" column="delivery_area_id"/>
+        <result property="deliveryCityId" column="delivery_city_id"/>
+        <result property="deliveryProvinceId" column="delivery_province_id"/>
+        <result property="distributorId" column="distributor_id"/>
+        <result property="statusId" column="status_id"/>
+        <result property="loginAccountId" column="login_account_id"/>
+        <result property="storePhoneNumberOriginal" column="store_phone_number_original"/>
+        <result property="storeReceiverNameOriginal" column="store_receiver_name_original"/>
+        <result property="distributorAccountId" column="distributor_account_id"/>
+        <result property="originalRequestId" column="original_request_id"/>
+    </resultMap>
+
+    <!--  新增门店  -->
+    <insert id="insertOne">
+        INSERT INTO distributor_store
+        (
+        store_name_original,
+        store_number_original,
+        store_receiver_name_original,
+		store_phone_number_original,
+        distributor_id,
+		store_province_original,
+		store_city_original,
+		store_county_original,
+		store_address_original,
+		status_id,
+		delivery_province_id,
+		delivery_city_id,
+		delivery_area_id
+        )
+        VALUES(
+        #{storeNameOriginal,jdbcType=VARCHAR}
+        ,#{storeNumberOriginal,jdbcType=VARCHAR}
+        ,#{storeReceiverNameOriginal,jdbcType=VARCHAR}
+        ,#{storePhoneNumberOriginal,jdbcType=VARCHAR}
+        ,#{distributorId,jdbcType=DECIMAL}
+        ,#{storeProvinceOriginal,jdbcType=VARCHAR}
+        ,#{storeCityOriginal,jdbcType=VARCHAR}
+        ,#{storeCountyOriginal,jdbcType=VARCHAR}
+        ,#{storeAddressOriginal,jdbcType=VARCHAR}
+        ,#{statusId,jdbcType=DECIMAL}
+        ,#{deliveryProvinceId,jdbcType=DECIMAL}
+        ,#{deliveryCityId,jdbcType=DECIMAL}
+        ,#{deliveryAreaId,jdbcType=DECIMAL}
+		)
+
+    </insert>
+
+
+</mapper>
