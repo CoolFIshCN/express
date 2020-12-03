@@ -71,10 +71,10 @@ public class ProductController {
             return R.error("请求最大长度不得超过："+PRODUCT_MAX_SIZE);
         }
         // 更新或者添加物料
-        boolean b = productService.updateOrSave(productList,byUsername);
+        R r = productService.updateOrSave(productList,byUsername);
 
 
-        return R.ok();
+        return R.ok().put("okList",r.get("okList")).put("errorList",r.get("errorList"));
     }
 
 

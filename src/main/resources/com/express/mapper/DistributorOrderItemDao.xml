@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.express.mapper.DistributorOrderItemDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.express.entity.DistributorOrderItemEntity" id="distributorOrderItemMap">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="deliveredAmount" column="delivered_amount"/>
+        <result property="deliveryDate" column="delivery_date"/>
+        <result property="itemName" column="item_name"/>
+        <result property="itemNumber" column="item_number"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="orderAcceptedDate" column="order_accepted_date"/>
+        <result property="orderAmount" column="order_amount"/>
+        <result property="orderItemClosedDate" column="order_item_closed_date"/>
+        <result property="orderItemDeliveredDate" column="order_item_delivered_date"/>
+        <result property="ordeItemrDeliveringDate" column="orde_itemr_delivering_date"/>
+        <result property="orderItemPaidDate" column="order_item_paid_date"/>
+        <result property="orderItemProducingDate" column="order_item_producing_date"/>
+        <result property="orderItemReadyForShippingDate" column="order_item_ready_for_shipping_date"/>
+        <result property="orderItemShippingDate" column="order_item_shipping_date"/>
+        <result property="orderReceivedDate" column="order_received_date"/>
+        <result property="orderWaitForVerifyDate" column="order_wait_for_verify_date"/>
+        <result property="sellPrice" column="sell_price"/>
+        <result property="subTotal" column="sub_total"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="distributorId" column="distributor_id"/>
+        <result property="distributorAccountId" column="distributor_account_id"/>
+        <result property="distributorOrderId" column="distributor_order_id"/>
+        <result property="statusId" column="status_id"/>
+        <result property="distributorProductId" column="distributor_product_id"/>
+        <result property="modifierId" column="modifier_id"/>
+        <result property="skuUnit" column="sku_unit"/>
+        <result property="spec" column="spec"/>
+        <result property="erpDeliveryProductKey" column="erp_delivery_product_key"/>
+        <result property="erpOrderProductKey" column="erp_order_product_key"/>
+        <result property="orderAmountKg" column="order_amount_kg"/>
+        <result property="version" column="version"/>
+        <result property="ecDistributorProductId" column="ec_distributor_product_id"/>
+        <result property="fromDistributorSellPrice" column="from_distributor_sell_price"/>
+        <result property="fromDistributorSubTotal" column="from_distributor_sub_total"/>
+    </resultMap>
+
+
+</mapper>

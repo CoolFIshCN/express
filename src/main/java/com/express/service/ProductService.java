@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.express.dto.ProductDto;
 import com.express.entity.ProductEntity;
 import com.express.entity.SysUser;
+import com.express.util.R;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface ProductService extends IService<ProductEntity> {
      * @param
      * @return
      */
-    boolean updateOrSave(List<ProductDto> productList, SysUser user);
+    R updateOrSave(List<ProductDto> productList, SysUser user);
 
     /**
      * 根据经销商id和物料编号查询

@@ -79,6 +79,12 @@ public class ProductDto implements Serializable {
     // 当前时间
     private Date nowTime;
 
+    // 单箱单位
+    private String boxUnit;
+
+    // 销售单位
+    private String sellUnit;
+
     public String getProductNumber() {
         return productNumber;
     }
@@ -253,5 +259,21 @@ public class ProductDto implements Serializable {
 
     public void setNowTime(Date nowTime) {
         this.nowTime = nowTime;
+    }
+
+    public String getBoxUnit() {
+        return boxUnit;
+    }
+
+    public void setBoxUnit(String boxUnit) {
+        this.boxUnit = boxUnit;
+    }
+
+    public String getSellUnit() {
+        return sellUnit;
+    }
+
+    public void setSellUnit(String sellUnit) {
+        this.sellUnit = sellUnit;
     }
 }

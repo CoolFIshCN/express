@@ -13,6 +13,7 @@ import com.express.mapper.DistributorProductDao;
 import com.express.mapper.ProductDao;
 import com.express.service.ProductService;
 import com.express.service.TemperatureTypeService;
+import com.express.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,11 +49,24 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, ProductEntity> i
     @DS("master")
     @Transactional
     @Override
-    public boolean updateOrSave(List<ProductDto> productList, SysUser user) {
+    public R updateOrSave(List<ProductDto> productList, SysUser user) {
+        List<String> okList = new ArrayList<>();
+        List<String> errorList = new ArrayList<>();
 
-        boolean flag = false;
+        List<ProductDto> operationList = new ArrayList<>();
 
-        for (ProductDto productDto : productList) {
+        productList.forEach(productDto -> {
+            Boolean aBoolean = this.checkSellUnit(productDto);
+            if (aBoolean){
+                operationList.add(productDto);
+            }else {
+                String productNumber = productDto.getProductNumber();
+                errorList.add("productNumber:"+ productNumber+",'sellUnit' value of the field is error;");
+            }
+        });
+
+
+        for (ProductDto productDto : operationList) {
             // 根据物料编号和进销商id查询
             String productNumber = productDto.getProductNumber();
             List<ProductEntity> productEntities = productDao.selectList(new QueryWrapper<ProductEntity>()
@@ -88,8 +102,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, ProductEntity> i
                                         .eq("product_id", productId)
                                         .eq("distributor_id",user.getDistributorId()));
                     });
-
-                    flag = true;
+                    okList.add("productNumber："+ productNumber + ",Update successful;");
                 }
             }
             // 不存在就新增
@@ -113,12 +126,13 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, ProductEntity> i
                     distributorProductEntity.setCreateDate(new Date());
                     // 插入进销商附表
                     distributorProductDao.insertOne(distributorProductEntity);
-                    flag = true;
+
+                    okList.add("productNumber："+ productNumber + ",Save successful;");
                 }
             }
         }
 
-        return flag;
+        return R.ok().put("okList",okList).put("errorList",errorList);
     }
 
     /**
@@ -349,6 +363,11 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, ProductEntity> i
             }
         }
 
+        // erpSellingUnit
+        if (null != productDto.getSellUnit()){
+            reEntity.setSellUnit(productDto.getSellUnit());
+        }
+
         return reEntity;
     }
 
@@ -448,7 +467,31 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, ProductEntity> i
                 reEntity.setStatusId(2002L);
             }
         }
+        // erp 销售单位
+        if(null != productDto.getBoxUnit()){
+            reEntity.setErpSellingUnit(productDto.getBoxUnit());
+        }
         return reEntity;
+    }
+
+    /**
+     * 校验零售单位
+     * @param productDto
+     * @return
+     */
+    private Boolean checkSellUnit(ProductDto productDto){
+        String boxUnit = productDto.getBoxUnit();
+        String skuUnit = productDto.getSkuUnit();
+
+        String sellUnit = productDto.getSellUnit();
+
+        if (null != sellUnit &&null != boxUnit && null != skuUnit){
+            if (sellUnit.equals(boxUnit) || sellUnit.equals(skuUnit)){
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
