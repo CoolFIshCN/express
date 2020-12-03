@@ -49,7 +49,8 @@
         stocks_amount_max,
         create_date,
         creator_id,
-        status_id
+        status_id,
+        product_stock_type_id
         )
         VALUES
         (
@@ -63,6 +64,7 @@
         ,#{createDate,jdbcType=TIMESTAMP}
         ,#{creatorId,jdbcType=DECIMAL}
         ,#{statusId,jdbcType=DECIMAL}
+        ,#{productStockTypeId,jdbcType=DECIMAL}
         );
     </insert>
 

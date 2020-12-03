@@ -41,5 +41,5 @@ store:
 
 jwt:
   secretKey: "SECRET_KEY"
-  #   60秒
-  tokenOutTime: 600000
+  #   600秒
+  tokenOutTime: 3600000
