@@ -38,6 +38,8 @@ product:
   maxSize: 20
 store:
   maxSize: 20
+order:
+  maxSize: 20
 
 jwt:
   secretKey: "SECRET_KEY"

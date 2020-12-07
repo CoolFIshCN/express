@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.express.mapper.DistributorAccountDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.express.entity.DistributorAccountEntity" id="distributorAccountMap">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="email" column="email"/>
+        <result property="forgotPasswordKey" column="forgot_password_key"/>
+        <result property="fullName" column="full_name"/>
+        <result property="mobileNumber" column="mobile_number"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="password" column="password"/>
+        <result property="wrongPasswordCount" column="wrong_password_count"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="distributorId" column="distributor_id"/>
+        <result property="statusId" column="status_id"/>
+        <result property="modifierId" column="modifier_id"/>
+        <result property="genericDepartmentId" column="generic_department_id"/>
+        <result property="genericJobTitleId" column="generic_job_title_id"/>
+        <result property="selfCreateCommercialType" column="self_create_commercial_type"/>
+        <result property="selfCreateCooperateIntension" column="self_create_cooperate_intension"/>
+        <result property="selfCreateDepartment" column="self_create_department"/>
+        <result property="selfCreateInterestedProduct" column="self_create_interested_product"/>
+        <result property="selfCreateJobTitle" column="self_create_job_title"/>
+        <result property="remark" column="remark"/>
+        <result property="deliveryAddressDetail" column="delivery_address_detail"/>
+        <result property="deliveryAreaId" column="delivery_area_id"/>
+        <result property="deliveryCityId" column="delivery_city_id"/>
+        <result property="deliveryProvinceId" column="delivery_province_id"/>
+        <result property="accountName" column="account_name"/>
+        <result property="smsCode" column="sms_code"/>
+        <result property="smsCodeDate" column="sms_code_date"/>
+        <result property="receiverFullName" column="receiver_full_name"/>
+        <result property="receiverMobileNumber" column="receiver_mobile_number"/>
+        <result property="deliveryRemark" column="delivery_remark"/>
+    </resultMap>
+
+
+</mapper>

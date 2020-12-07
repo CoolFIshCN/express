@@ -2,6 +2,7 @@ package com.express.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -282,6 +283,15 @@ public class DistributorOrderEntity implements Serializable {
 	 * $column.comments
 	 */
 	private Date paymentCallBackReceivedDate;
+
+	private Date   deliveryDate;
+
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private String originalDeliveryDateString;
+
+	private String originalOrderNumber;
+
+	private String originalRequestId;
 
 	public Long getId() {
 		return id;
@@ -810,4 +820,37 @@ public class DistributorOrderEntity implements Serializable {
 	public void setPaymentCallBackReceivedDate(Date paymentCallBackReceivedDate) {
 		this.paymentCallBackReceivedDate = paymentCallBackReceivedDate;
 	}
+
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public String getOriginalDeliveryDateString() {
+		return originalDeliveryDateString;
+	}
+
+	public void setOriginalDeliveryDateString(String originalDeliveryDateString) {
+		this.originalDeliveryDateString = originalDeliveryDateString;
+	}
+
+	public String getOriginalOrderNumber() {
+		return originalOrderNumber;
+	}
+
+	public void setOriginalOrderNumber(String originalOrderNumber) {
+		this.originalOrderNumber = originalOrderNumber;
+	}
+
+	public String getOriginalRequestId() {
+		return originalRequestId;
+	}
+
+	public void setOriginalRequestId(String originalRequestId) {
+		this.originalRequestId = originalRequestId;
+	}
+
 }

@@ -15,5 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface DistributorOrderItemDao extends BaseMapper<DistributorOrderItemEntity> {
-	
+
+    // 新增订单详情
+    int insertOne(DistributorOrderItemEntity updateItemEntity);
 }

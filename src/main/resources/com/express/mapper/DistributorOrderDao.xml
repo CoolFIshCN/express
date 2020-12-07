@@ -3,7 +3,7 @@
 
 <mapper namespace="com.express.mapper.DistributorOrderDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.express.entity.DistributorOrderEntity" id="distributorOrderMap">
         <result property="id" column="id"/>
         <result property="createDate" column="create_date"/>
@@ -71,7 +71,48 @@
         <result property="erpSalesReturnStatusId" column="erp_sales_return_status_id"/>
         <result property="orderNumberSalesReturn" column="order_number_sales_return"/>
         <result property="paymentCallBackReceivedDate" column="payment_call_back_received_date"/>
+        <result property="deliveryDate" column="delivery_date"/>
+        <result property="originalDeliveryDateString" column="original_delivery_date_string"/>
+        <result property="originalOrderNumber" column="original_order_number"/>
+        <result property="originalRequestId" column="original_request_id"/>
     </resultMap>
+    <!--  新增订单  -->
+    <insert id="insertOne" parameterType="com.express.entity.DistributorOrderEntity" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into
+        distributor_order
+        (
+        	original_order_number,
+        	original_request_id,
+        	from_distributor_order_payer,
+        	distributor_store_id,
+        	delivery_date,
+        	delivery_province_id,
+        	delivery_city_id,
+        	delivery_area_id,
+        	delivery_address_detail,
+        	status_id,
+        	version,
+        	distributor_id,
+        	distributor_account_id,
+        	distributor_order_type_id
+        )values(
+            #{originalOrderNumber,jdbcType=VARCHAR},
+            #{originalRequestId,jdbcType=VARCHAR},
+            #{fromDistributorOrderPayer,jdbcType=VARCHAR},
+            #{distributorStoreId,jdbcType=DECIMAL},
+            #{deliveryDate,jdbcType=DATE},
+            #{deliveryProvinceId,jdbcType=DECIMAL},
+            #{deliveryCityId,jdbcType=DECIMAL},
+            #{deliveryAreaId,jdbcType=DECIMAL},
+            #{deliveryAddressDetail,jdbcType=VARCHAR},
+            #{statusId,jdbcType=DECIMAL},
+            #{version,jdbcType=DATE},
+            #{distributorId,jdbcType=VARCHAR},
+            #{distributorAccountId,jdbcType=DECIMAL},
+            #{distributorOrderTypeId,jdbcType=DECIMAL}
+        )
+    </insert>
 
 
 </mapper>

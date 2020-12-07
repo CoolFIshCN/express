@@ -3,7 +3,7 @@
 
 <mapper namespace="com.express.mapper.DistributorOrderItemDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.express.entity.DistributorOrderItemEntity" id="distributorOrderItemMap">
         <result property="id" column="id"/>
         <result property="createDate" column="create_date"/>
@@ -42,6 +42,30 @@
         <result property="fromDistributorSellPrice" column="from_distributor_sell_price"/>
         <result property="fromDistributorSubTotal" column="from_distributor_sub_total"/>
     </resultMap>
+
+    <!--  新增订单详情  -->
+    <insert id="insertOne" parameterType="com.express.entity.DistributorOrderItemEntity">
+        insert into distributor_order_item
+        (
+        item_number,
+        sku_unit,
+        sub_total,
+        version,
+        distributor_account_id,
+        distributor_order_id,
+        status_id,
+        distributor_id
+        )values(
+        #{itemNumber,jdbcType=VARCHAR},
+        #{skuUnit,jdbcType=VARCHAR},
+        #{subTotal,jdbcType=DOUBLE},
+        #{version,jdbcType=DATE},
+        #{distributorAccountId,jdbcType=DECIMAL},
+        #{distributorOrderId,jdbcType=DECIMAL},
+        #{statusId,jdbcType=DECIMAL},
+        #{distributorId,jdbcType=DECIMAL}
+        )
+    </insert>
 
 
 </mapper>
