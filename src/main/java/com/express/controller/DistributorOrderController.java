@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.express.annotation.AuthorityCheck;
 import com.express.dto.OrderDto;
 import com.express.dto.ProductDto;
 import com.express.entity.DistributorOrderEntity;
@@ -90,6 +91,7 @@ public class DistributorOrderController {
      * @return
      */
     @PostMapping("/updateOrSaveList")
+    @AuthorityCheck(value = "distributorOrder:updateOrSaveList")
     @ResponseBody
     public R updateOrSaveList(@RequestHeader("token") String token, @RequestBody List<OrderDto> orderDtoList) {
         //获取用户信息

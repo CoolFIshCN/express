@@ -1,6 +1,7 @@
 package com.express.controller;
 
 
+import com.express.annotation.AuthorityCheck;
 import com.express.dto.ProductDto;
 import com.express.entity.SysUser;
 import com.express.mapper.UserMapper;
@@ -45,6 +46,7 @@ public class ProductController {
      * @return
      */
     @PostMapping("/updateOrSave")
+    @AuthorityCheck(value = "product:updateOrSave")
     @Validated
     @ResponseBody
     public R updateOrSave(@RequestHeader("token")String token,@RequestBody List<ProductDto> productList){
@@ -79,6 +81,7 @@ public class ProductController {
      * @return
      */
     @PostMapping("/getByProductNumber")
+    @AuthorityCheck(value = "product:getByProductNumber")
     @ResponseBody
     public R getByProductNumber(@RequestHeader("token")String token,@RequestBody Map<String,Object> params){
 

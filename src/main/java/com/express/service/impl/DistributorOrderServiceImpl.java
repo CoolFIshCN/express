@@ -71,7 +71,7 @@ public class DistributorOrderServiceImpl extends ServiceImpl<DistributorOrderDao
                                 .eq("original_order_number", orderDto.getOrderNo())
                                 .eq("distributor_id", distributorId));
                 if (updateOrder > 0) {
-                    Long orderId = updateEntity.getId();
+                    Long orderId = countList.get(0).getId();
 
                     List<OrderProductsDto> products = orderDto.getProducts();
                     products.forEach(orderProductsDto -> {

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.express.annotation.AuthorityCheck;
 import com.express.entity.DistributorStoreEntity;
 import com.express.entity.SysUser;
 import com.express.mapper.UserMapper;
@@ -91,6 +92,7 @@ public class DistributorStoreController {
      * @return
      */
     @PostMapping("/updateOrSave")
+    @AuthorityCheck(value = "distributorStore:updateOrSave")
     @ResponseBody
     public R updateOrSave(@RequestHeader("token") String token, @RequestBody List<DistributorStoreEntity> entityList) {
         //获取用户信息
@@ -125,6 +127,7 @@ public class DistributorStoreController {
      * @return
      */
     @PostMapping("/getByStoreNumber")
+    @AuthorityCheck(value = "distributorStore:getByStoreNumber")
     @ResponseBody
     public R getByStoreNumber(@RequestHeader("token") String token, @RequestBody Map<String, Object> params) {
         List<String> storeNumberList = (ArrayList<String>) params.get("storeNumberList");

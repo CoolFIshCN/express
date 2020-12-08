@@ -6,9 +6,16 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.express.annotation.AuthorityCheck;
 import com.express.annotation.PassToken;
 import com.express.annotation.UserLoginToken;
+import com.express.entity.SysApiEntity;
 import com.express.entity.SysUser;
+import com.express.entity.SysUserApiEntity;
+import com.express.mapper.SysApiDao;
+import com.express.mapper.SysUserApiDao;
 import com.express.service.UserService;
 import com.express.util.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +27,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -34,6 +44,13 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
     JWTService jwtService;
 
+    @Autowired
+    private SysApiDao sysApiDao;
+
+    @Autowired
+    private SysUserApiDao sysUserApiDao;
+
+    @DS("api")
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
 
@@ -116,6 +133,50 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 out.close();
             }
         }
+        // 接口鉴权
+        AuthorityCheck annotation = method.getAnnotation(AuthorityCheck.class);
+        // 接口需要的权限
+        String value = annotation.value();
+        // 查所有可以访问的接口
+        List<SysApiEntity> sysApiEntities = sysApiDao.selectList(
+                new QueryWrapper<SysApiEntity>()
+                        .eq("api_name", value)
+                        .eq("status", 1)
+                        .eq("is_del", 0)
+                        .isNotNull("api_name"));
+
+        if (null != sysApiEntities && sysApiEntities.size() > 0) {
+            List<Long> apiList = new ArrayList<>();
+            sysApiEntities.forEach(api -> apiList.add(api.getId()));
+
+            Integer count = sysUserApiDao.selectCount(new QueryWrapper<SysUserApiEntity>()
+                    .eq("user_id", userId)
+                    .eq("status", 1)
+                    .eq("is_del", 0)
+                    .in("api_id", apiList));
+
+            if (count < 1){
+                res.put("code", "401");
+                res.put("msg", "网络忙，请联系管理员");
+                PrintWriter out = null;
+                out = httpServletResponse.getWriter();
+                out.write(res.toString());
+                out.flush();
+                out.close();
+                return false;
+            }
+        }else {
+            res.put("code", "401");
+            res.put("msg", "网络忙，请联系管理员");
+            PrintWriter out = null;
+            out = httpServletResponse.getWriter();
+            out.write(res.toString());
+            out.flush();
+            out.close();
+            return false;
+        }
+
+
         return true;
     }
 
