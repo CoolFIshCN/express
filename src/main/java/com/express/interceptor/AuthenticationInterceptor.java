@@ -53,7 +53,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @DS("api")
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
-
+        String url = httpServletRequest.getRequestURI();
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json; charset=utf-8");
         JSONObject res = new JSONObject();
@@ -135,27 +135,38 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
         // 接口鉴权
         AuthorityCheck annotation = method.getAnnotation(AuthorityCheck.class);
-        // 接口需要的权限
-        String value = annotation.value();
-        // 查所有可以访问的接口
-        List<SysApiEntity> sysApiEntities = sysApiDao.selectList(
-                new QueryWrapper<SysApiEntity>()
-                        .eq("api_name", value)
+        if(null != annotation){
+            // 接口需要的权限
+            String value = annotation.value();
+            // 查所有可以访问的接口
+            List<SysApiEntity> sysApiEntities = sysApiDao.selectList(
+                    new QueryWrapper<SysApiEntity>()
+                            .eq("api_name", value)
+                            .eq("status", 1)
+                            .eq("is_del", 0)
+                            .isNotNull("api_name"));
+
+            if (null != sysApiEntities && sysApiEntities.size() > 0) {
+                List<Long> apiList = new ArrayList<>();
+                sysApiEntities.forEach(api -> apiList.add(api.getId()));
+
+                Integer count = sysUserApiDao.selectCount(new QueryWrapper<SysUserApiEntity>()
+                        .eq("user_id", userId)
                         .eq("status", 1)
                         .eq("is_del", 0)
-                        .isNotNull("api_name"));
+                        .in("api_id", apiList));
 
-        if (null != sysApiEntities && sysApiEntities.size() > 0) {
-            List<Long> apiList = new ArrayList<>();
-            sysApiEntities.forEach(api -> apiList.add(api.getId()));
-
-            Integer count = sysUserApiDao.selectCount(new QueryWrapper<SysUserApiEntity>()
-                    .eq("user_id", userId)
-                    .eq("status", 1)
-                    .eq("is_del", 0)
-                    .in("api_id", apiList));
-
-            if (count < 1){
+                if (count < 1){
+                    res.put("code", "401");
+                    res.put("msg", "网络忙，请联系管理员");
+                    PrintWriter out = null;
+                    out = httpServletResponse.getWriter();
+                    out.write(res.toString());
+                    out.flush();
+                    out.close();
+                    return false;
+                }
+            }else {
                 res.put("code", "401");
                 res.put("msg", "网络忙，请联系管理员");
                 PrintWriter out = null;
@@ -165,17 +176,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 out.close();
                 return false;
             }
-        }else {
-            res.put("code", "401");
-            res.put("msg", "网络忙，请联系管理员");
-            PrintWriter out = null;
-            out = httpServletResponse.getWriter();
-            out.write(res.toString());
-            out.flush();
-            out.close();
-            return false;
-        }
 
+        }
 
         return true;
     }

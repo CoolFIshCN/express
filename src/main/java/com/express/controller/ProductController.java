@@ -8,6 +8,10 @@ import com.express.mapper.UserMapper;
 import com.express.service.ProductService;
 import com.express.util.JWTService;
 import com.express.util.R;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +23,7 @@ import java.util.*;
  * 外部 api 物料
  */
 @RestController
+@Api(tags = "物料相关接口")
 @RequestMapping("/product")
 public class ProductController {
 
@@ -47,6 +52,8 @@ public class ProductController {
      */
     @PostMapping("/updateOrSave")
     @AuthorityCheck(value = "product:updateOrSave")
+    @ApiOperation("更新或者添加物料")
+    @ApiImplicitParams({@ApiImplicitParam(name = "productList", value = "物料列表", defaultValue = "",required = true)})
     @Validated
     @ResponseBody
     public R updateOrSave(@RequestHeader("token")String token,@RequestBody List<ProductDto> productList){
@@ -82,6 +89,8 @@ public class ProductController {
      */
     @PostMapping("/getByProductNumber")
     @AuthorityCheck(value = "product:getByProductNumber")
+    @ApiOperation("根据物料编号获取物料所有信息")
+    @ApiImplicitParams({@ApiImplicitParam(name = "params", value = "参数列表", defaultValue = "",required = true)})
     @ResponseBody
     public R getByProductNumber(@RequestHeader("token")String token,@RequestBody Map<String,Object> params){
 

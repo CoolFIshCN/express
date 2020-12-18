@@ -1,5 +1,8 @@
 package com.express.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,78 +14,103 @@ import java.util.Date;
  *   @email cool_fish@aliyun.com
  *   @date 2020-11-23 19:05:54
  */
+@ApiModel
 public class ProductDto implements Serializable {
 
     // 物料编号
+    @ApiModelProperty(value = "物料编号")
     private String productNumber;
 
     // 物料名称
+    @ApiModelProperty(value = "物料名称")
     private String productName;
 
     // sku最小单位
+    @ApiModelProperty(value = "sku最小单位")
     private String skuUnit;
 
     // sku毛重
+    @ApiModelProperty(value = "sku毛重")
     private Double skuGrossWeight;
 
     // sku净重
+    @ApiModelProperty(value = "sku净重")
     private Double skuWeight;
 
     // 规格 (例: 12瓶/箱; 400包/20袋/箱)
+    @ApiModelProperty(value = "规格 (例: 12瓶/箱; 400包/20袋/箱)")
     private String spec;
 
     // 保质期
+    @ApiModelProperty(value = "保质期")
     private Integer warrantyDays;
 
     // 存储条件
+    @ApiModelProperty(value = "存储条件")
     private String temperatureType;
 
     // 箱长(公分, 小数后二位)
+    @ApiModelProperty(value = "箱长(公分, 小数后二位)")
     private String boxLength;
 
     // 箱宽(公分, 小数后二位)
+    @ApiModelProperty(value = "箱宽(公分, 小数后二位)")
     private String boxWidth;
 
     // 箱高(公分, 小数后二位)
+    @ApiModelProperty(value = "箱高(公分, 小数后二位)")
     private String boxHeight;
 
     //箱材积(立方公分, 小数后二位)
+    @ApiModelProperty(value = "箱材积(立方公分, 小数后二位)")
     private Double boxLoadedVolume;
 
     // 最大库存量
+    @ApiModelProperty(value = "最大库存量")
     private  Integer stocksAmountMax;
 
     // 安全库存量
+    @ApiModelProperty(value = "安全库存量")
     private  Integer safeStockAmount;
 
     // 最小起订量
+    @ApiModelProperty(value = "最小起订量")
     private  Integer orderAmountLeast;
 
     // 状态(0: 停用 / 1: 启用)
+    @ApiModelProperty(value = "状态(0: 停用 / 1: 启用)")
     private  Integer status;
 
     // 商品条码
+    @ApiModelProperty(value = "商品条码")
     private String barCode;
 
     // 单箱净重(KG, 小数后二位)
+    @ApiModelProperty(value = "单箱净重(KG, 小数后二位)")
     private String boxNetWeight;
 
     // 单箱毛重(KG, 小数后二位)
+    @ApiModelProperty(value = "单箱毛重(KG, 小数后二位)")
     private String boxGrossWeight;
 
     // 单箱内sku数
+    @ApiModelProperty(value = "单箱内sku数")
     private Integer boxLoadedAmount;
 
     // 当前操作人id
+    @ApiModelProperty(value = "当前操作人id")
     private Long userId;
 
     // 当前时间
+    @ApiModelProperty(value = "当前时间")
     private Date nowTime;
 
     // 单箱单位
+    @ApiModelProperty(value = "单箱单位")
     private String boxUnit;
 
     // 销售单位
+    @ApiModelProperty(value = "销售单位")
     private String sellUnit;
 
     public String getProductNumber() {

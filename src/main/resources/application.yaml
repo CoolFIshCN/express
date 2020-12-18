@@ -34,6 +34,7 @@ logging:
   #file: /Users/wang/Downloads/myspringboot.log
 
 
+# 接口List长度
 product:
   maxSize: 20
 store:
@@ -41,7 +42,15 @@ store:
 order:
   maxSize: 20
 
+# token
 jwt:
-  secretKey: "SECRET_KEY"
+  secretKey: "SUN_JUICE"
   #   600秒
   tokenOutTime: 3600000
+
+# 众邮
+zhongYou:
+  v: "2.0"
+  accessToken: "1b0c5e1c4ded4907bf59e8ec77fd4a26"
+  appKey: "dc88920d82764c20b6b03e18fa45dbac"
+  appSecret: "SUN_JUICE"

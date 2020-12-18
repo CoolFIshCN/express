@@ -43,10 +43,12 @@ public class LoginController {
 
 
     //获取token后,解析获取token中封装的user对象信息
-
-    @RequestMapping("/token")
-    public SysUser token(String token){
+    @GetMapping("/getUserName")
+    public R token(String token){
         SysUser user = jwtService.getUser(token);
-        return user;
+        if (null != user && !"".equals(user.getUsername())){
+            return R.ok().put("userName",user.getUsername());
+        }
+        return R.error();
     }
 }
