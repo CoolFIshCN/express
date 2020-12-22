@@ -12,6 +12,7 @@ import com.express.mapper.UserMapper;
 import com.express.service.DistributorStoreService;
 import com.express.util.JWTService;
 import com.express.util.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
  * @email cool_fish@aliyun.com
  * @date 2020-12-02 11:02:17
  */
+@Api(tags = "经销商门店")
 @RestController
 @RequestMapping("/distributorStore")
 public class DistributorStoreController {
@@ -45,45 +47,6 @@ public class DistributorStoreController {
     @Autowired
     private JWTService jwtService;
 
-    /**
-     * 信息
-     */
-    @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id) {
-        DistributorStoreEntity distributorStore = distributorStoreService.getById(id);
-
-        return R.ok().put("distributorStore", distributorStore);
-    }
-
-    /**
-     * 保存
-     */
-    @RequestMapping("/save")
-    public R save(@RequestBody DistributorStoreEntity distributorStore) {
-        distributorStoreService.save(distributorStore);
-
-        return R.ok();
-    }
-
-    /**
-     * 修改
-     */
-    @RequestMapping("/update")
-    public R update(@RequestBody DistributorStoreEntity distributorStore) {
-        distributorStoreService.updateById(distributorStore);
-
-        return R.ok();
-    }
-
-    /**
-     * 删除
-     */
-    @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids) {
-        distributorStoreService.removeByIds(Arrays.asList(ids));
-
-        return R.ok();
-    }
 
     /**
      * 批量修改或者新增

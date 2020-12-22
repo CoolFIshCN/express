@@ -14,6 +14,7 @@ import com.express.mapper.UserMapper;
 import com.express.service.DistributorOrderService;
 import com.express.util.JWTService;
 import com.express.util.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
  * @email cool_fish@aliyun.com
  * @date 2020-12-03 15:07:56
  */
+@Api(tags = "订单")
 @RestController
 @RequestMapping("/distributorOrder")
 public class DistributorOrderController {
@@ -44,45 +46,6 @@ public class DistributorOrderController {
     @Autowired
     private JWTService jwtService;
 
-    /**
-     * 信息
-     */
-    @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id) {
-        DistributorOrderEntity distributorOrder = distributorOrderService.getById(id);
-
-        return R.ok().put("distributorOrder", distributorOrder);
-    }
-
-    /**
-     * 保存
-     */
-    @RequestMapping("/save")
-    public R save(@RequestBody DistributorOrderEntity distributorOrder) {
-        distributorOrderService.save(distributorOrder);
-
-        return R.ok();
-    }
-
-    /**
-     * 修改
-     */
-    @RequestMapping("/update")
-    public R update(@RequestBody DistributorOrderEntity distributorOrder) {
-        distributorOrderService.updateById(distributorOrder);
-
-        return R.ok();
-    }
-
-    /**
-     * 删除
-     */
-    @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids) {
-        distributorOrderService.removeByIds(Arrays.asList(ids));
-
-        return R.ok();
-    }
 
     /**
      * 批量更新或新增

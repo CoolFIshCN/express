@@ -117,6 +117,19 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient-cache</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+
+        <!--    okhttps    -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-http</artifactId>
+            <version>5.0.2</version>
+        </dependency>
+
 
         <!--    swagger    -->
         <dependency>
@@ -128,6 +141,12 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
+        </dependency>
+        <!--   众邮openJdk     -->
+        <dependency>
+            <groupId>com.zhongyou</groupId>
+            <artifactId>zhongyou-jdk</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
