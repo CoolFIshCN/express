@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.express.dao.SysUserTokenDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.express.entity.SysUserTokenEntity" id="sysUserTokenMap">
+        <result property="id" column="id"/>
+        <result property="userNo" column="user_no"/>
+        <result property="userPs" column="user_ps"/>
+        <result property="accessToken" column="access_token"/>
+        <result property="refreshToken" column="refresh_token"/>
+        <result property="expireAt" column="expire_at"/>
+        <result property="issueAt" column="issue_at"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="distributorId" column="distributor_id"/>
+        <result property="ipList" column="ip_list"/>
+        <result property="contact" column="contact"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="createTime" column="create_time"/>
+        <result property="verifyCode" column="verify_code"/>
+        <result property="verifyCreateTime" column="verify_create_time"/>
+    </resultMap>
+
+
+</mapper>

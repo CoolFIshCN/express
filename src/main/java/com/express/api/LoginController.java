@@ -1,7 +1,5 @@
 package com.express.api;
 
-
-
 import com.express.annotation.PassToken;
 import com.express.util.JWTService;
 import com.express.entity.SysUser;
@@ -10,8 +8,6 @@ import com.express.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -24,12 +20,16 @@ public class LoginController {
     private JWTService jwtService;
 
 
-    //生成token并返回到前端
+    /**
+     * 生成token并返回到前端
+     * @param sysUser
+     * @return
+     */
     @PassToken(required = true)
     @PostMapping("/doLogin")
     public R login(@RequestBody SysUser sysUser) {
 
-        //获取用户信息,可自行创建User类
+        // 获取用户信息,可自行创建User类
         SysUser user = userService.checkPassword(sysUser.getUsername(),sysUser.getPassword());
         if (null == user || null == user.getId()){
             return R.error("账号或密码错误");
@@ -40,9 +40,11 @@ public class LoginController {
     }
 
 
-
-
-    //获取token后,解析获取token中封装的user对象信息
+    /**
+     * 获取token后,解析获取token中封装的user对象信息
+     * @param token
+     * @return
+     */
     @GetMapping("/getUserName")
     public R token(String token){
         SysUser user = jwtService.getUser(token);

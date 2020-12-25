@@ -57,7 +57,7 @@ public class ProductController {
     @Validated
     @ResponseBody
     public R updateOrSave(@RequestHeader("token")String token,@RequestBody List<ProductDto> productList){
-        //获取用户信息
+        // 获取用户信息
         SysUser user  = jwtService.getUser(token);
         if (null ==user || null == user.getUsername()){
             return R.error("无效token");
