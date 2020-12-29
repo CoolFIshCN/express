@@ -4,6 +4,7 @@ package com.express.controller;
 import com.express.annotation.AuthorityCheck;
 import com.express.dto.ProductDto;
 import com.express.entity.SysUser;
+import com.express.entity.SysUserTokenEntity;
 import com.express.mapper.UserMapper;
 import com.express.service.ProductService;
 import com.express.util.JWTService;
@@ -52,18 +53,16 @@ public class ProductController {
      */
     @PostMapping("/updateOrSave")
     @AuthorityCheck(value = "product:updateOrSave")
-    @ApiOperation("更新或者添加物料")
-    @ApiImplicitParams({@ApiImplicitParam(name = "productList", value = "物料列表", defaultValue = "",required = true)})
     @Validated
     @ResponseBody
     public R updateOrSave(@RequestHeader("token")String token,@RequestBody List<ProductDto> productList){
         // 获取用户信息
-        SysUser user  = jwtService.getUser(token);
-        if (null ==user || null == user.getUsername()){
+        SysUserTokenEntity user = jwtService.getUser(token);
+        if (null ==user || null == user.getUserNo()){
             return R.error("无效token");
         }
         // 获取进销商id
-        SysUser byUsername = userMapper.findByUsername(user.getUsername());
+        SysUser byUsername = userMapper.findByUsername(user.getUserNo());
         if (null ==byUsername || null == byUsername.getDistributorId()){
             return R.error("无效经销商");
         }
@@ -98,13 +97,13 @@ public class ProductController {
         List<String>productNumberList = (ArrayList<String>) params.get("productNumberList");
 
 
-        //获取用户信息
-        SysUser user  = jwtService.getUser(token);
-        if (null ==user || null == user.getUsername()){
+        // 获取用户信息
+        SysUserTokenEntity user = jwtService.getUser(token);
+        if (null ==user || null == user.getUserNo()){
             return R.error("无效token");
         }
         // 获取进销商id
-        SysUser byUsername = userMapper.findByUsername(user.getUsername());
+        SysUser byUsername = userMapper.findByUsername(user.getUserNo());
         if (null ==byUsername || null == byUsername.getDistributorId()){
             return R.error("无效经销商");
         }

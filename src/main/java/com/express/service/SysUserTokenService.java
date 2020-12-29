@@ -21,17 +21,35 @@ public interface SysUserTokenService extends IService<SysUserTokenEntity> {
      * @param userPs
      * @return
      */
-    List<SysUserTokenEntity> findIsExpired(String userNo, String userPs);
+    List<Map<String,Object>> findIsExpired(String userNo, String userPs);
+
+    /**
+     * 获取token
+     * @param userNo
+     * @param pwd
+     * @return
+     */
+    Map<String, String> getToken(String userNo, String pwd);
 
     /**
      * 生成双token
-     * @param userNo
-     * @param pwd
-     * @param distributorId
-     * @param outTime
-     * @param renew
+     * @param user
      * @return
      */
-    Map<String, String> getToken(String userNo, String pwd, Long distributorId, int outTime, boolean renew);
+    Map<String, String> getDoubleToken (SysUserTokenEntity user);
+
+    /**
+     * 创建用户
+     * @param params
+     * @return
+     */
+    boolean createUser(Map<String, String> params);
+
+    /**
+     * 根据用户名查询是否重复
+     * @param userNo
+     * @return
+     */
+    int countByUserNo(String userNo);
 }
 

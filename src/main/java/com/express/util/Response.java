@@ -20,6 +20,10 @@ public class Response extends HashMap<String, Object> {
     public Response() {
         put("status", "200").put("result","success");
     }
+    public Response(String code, String msg) {
+        put("status", code);
+        put("result", msg);
+    }
     public static Response error() {
         return error("500", "作業失敗，服務器發生例外錯誤");
     }

@@ -1,6 +1,7 @@
 package com.express.api;
 
 import com.express.annotation.PassToken;
+import com.express.entity.SysUserTokenEntity;
 import com.express.util.JWTService;
 import com.express.entity.SysUser;
 import com.express.service.UserService;
@@ -20,24 +21,24 @@ public class LoginController {
     private JWTService jwtService;
 
 
-    /**
-     * 生成token并返回到前端
-     * @param sysUser
-     * @return
-     */
-    @PassToken(required = true)
-    @PostMapping("/doLogin")
-    public R login(@RequestBody SysUser sysUser) {
-
-        // 获取用户信息,可自行创建User类
-        SysUser user = userService.checkPassword(sysUser.getUsername(),sysUser.getPassword());
-        if (null == user || null == user.getId()){
-            return R.error("账号或密码错误");
-        }
-        String token = jwtService.getToken(user);
-
-        return R.ok().put("token",token);
-    }
+//    /**
+//     * 生成token并返回到前端
+//     * @param sysUser
+//     * @return
+//     */
+//    @PassToken(required = true)
+//    @PostMapping("/doLogin")
+//    public R login(@RequestBody SysUser sysUser) {
+//
+//        // 获取用户信息,可自行创建User类
+//        SysUser user = userService.checkPassword(sysUser.getUsername(),sysUser.getPassword());
+//        if (null == user || null == user.getId()){
+//            return R.error("账号或密码错误");
+//        }
+//        String token = jwtService.getToken(user);
+//
+//        return R.ok().put("token",token);
+//    }
 
 
     /**
@@ -47,9 +48,10 @@ public class LoginController {
      */
     @GetMapping("/getUserName")
     public R token(String token){
-        SysUser user = jwtService.getUser(token);
-        if (null != user && !"".equals(user.getUsername())){
-            return R.ok().put("userName",user.getUsername());
+
+        SysUserTokenEntity user = jwtService.getUser(token);
+        if (null != user && !"".equals(user.getUserNo())){
+            return R.ok().put("userName",user.getUserNo());
         }
         return R.error();
     }

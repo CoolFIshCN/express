@@ -14,8 +14,10 @@ import com.express.annotation.UserLoginToken;
 import com.express.entity.SysApiEntity;
 import com.express.entity.SysUser;
 import com.express.entity.SysUserApiEntity;
+import com.express.entity.SysUserTokenEntity;
 import com.express.mapper.SysApiDao;
 import com.express.mapper.SysUserApiDao;
+import com.express.service.SysUserTokenService;
 import com.express.service.UserService;
 import com.express.util.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,7 @@ import java.util.List;
  */
 public class AuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
-    UserService userService;
+    SysUserTokenService userTokenService;
 
     @Autowired
     JWTService jwtService;
@@ -58,7 +60,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         httpServletResponse.setContentType("application/json; charset=utf-8");
         JSONObject res = new JSONObject();
 
-        String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
+        String token = httpServletRequest.getHeader("Authentication");// 从 http 请求头中取出 token
         // 如果不是映射到方法直接通过
         if (!(object instanceof HandlerMethod)) {
             return true;
@@ -97,7 +99,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         // 获取 token 中的 user id
         String userId;
         try {
-            userId = jwtService.getUser(token).getId();
+            userId = jwtService.getUser(token).getId().toString();
         } catch (JWTDecodeException j) {
             res.put("code", "502");
             res.put("msg", "无效token");
@@ -108,7 +110,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             out.close();
             throw new RuntimeException("502，无效token");
         }
-        SysUser sysUser = userService.findUserById(userId);
+        SysUserTokenEntity sysUser = userTokenService.getById(userId);
         if (sysUser == null) {
             res.put("code", "503");
             res.put("msg", "无效token");

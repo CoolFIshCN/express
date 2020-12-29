@@ -10,6 +10,7 @@ import com.express.dto.OrderDto;
 import com.express.dto.ProductDto;
 import com.express.entity.DistributorOrderEntity;
 import com.express.entity.SysUser;
+import com.express.entity.SysUserTokenEntity;
 import com.express.mapper.UserMapper;
 import com.express.service.DistributorOrderService;
 import com.express.util.JWTService;
@@ -58,12 +59,12 @@ public class DistributorOrderController {
     @ResponseBody
     public R updateOrSaveList(@RequestHeader("token") String token, @RequestBody List<OrderDto> orderDtoList) {
         //获取用户信息
-        SysUser user  = jwtService.getUser(token);
-        if (null ==user || null == user.getUsername()){
+        SysUserTokenEntity user = jwtService.getUser(token);
+        if (null ==user || null == user.getUserNo()){
             return R.error("无效token");
         }
         // 获取进销商id
-        SysUser byUsername = userMapper.findByUsername(user.getUsername());
+        SysUser byUsername = userMapper.findByUsername(user.getUserNo());
         if (null ==byUsername || null == byUsername.getDistributorId()){
             return R.error("无效经销商");
         }

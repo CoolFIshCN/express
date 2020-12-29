@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.express.dao.SysUserTokenDao">
+<mapper namespace="com.express.mapper.SysUserTokenDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.express.entity.SysUserTokenEntity" id="sysUserTokenMap">
         <result property="id" column="id"/>
         <result property="userNo" column="user_no"/>
@@ -21,6 +21,37 @@
         <result property="verifyCode" column="verify_code"/>
         <result property="verifyCreateTime" column="verify_create_time"/>
     </resultMap>
+
+    <!--  创建用户  -->
+    <insert id="createUser">
+        insert into [dbo].[sys_user_token]
+        (
+        user_no,
+        user_ps,
+        create_time
+        )values(
+        #{userNo,jdbcType=VARCHAR},
+        #{userPs,jdbcType=VARCHAR},
+        (select CONVERT ( varchar , getdate (), 120))
+        )
+    </insert>
+
+    <!--  查询创建时间为三天前的账号  -->
+    <select id="findIsExpired" resultType="java.util.Map">
+        select
+            user_no as userNo
+            ,distributor_id as distributorId
+            ,ip_list as ipList
+            ,create_time as createTime
+            ,dateadd(day,3,create_time) as expiredDate
+            ,case when getdate() > dateadd(day,3,create_time) then 'Y' else 'N' end as isExpired
+        from
+            [dbo].sys_user_token with (nolock)
+        where
+            user_no= #{userNo}
+            and user_ps= #{userPs}
+            and is_del != 1;
+    </select>
 
 
 </mapper>

@@ -18,7 +18,11 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 import com.express.common.Payload;
 import com.express.entity.SysUser;
 
+import com.express.entity.SysUserApiEntity;
+import com.express.entity.SysUserTokenEntity;
+import com.express.service.SysUserTokenService;
 import com.express.service.UserService;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -37,7 +41,7 @@ public class JWTService {
     private String secret;
 
     @Value("${jwt.tokenOutTime}")
-    private Long  tokenOutTime;
+    private Long tokenOutTime;
 
     private String issuer = "USERSERVICE";//发布者
 
@@ -51,6 +55,10 @@ public class JWTService {
     // 用户
     @Autowired
     private UserService userService;
+
+    // 用户和token
+    @Autowired
+    private SysUserTokenService userTokenService;
 
 
     /**
@@ -492,18 +500,31 @@ public class JWTService {
      * @return token中包含的实体类
      */
 
-    public SysUser getUser(String token) {
+    public SysUserTokenEntity getUser(String token) {
 
         DecodedJWT jwt = JWT.decode(token);
 
-        SysUser user = new SysUser();
+        SysUserTokenEntity user = new SysUserTokenEntity();
         Map<String, Claim> claims = jwt.getClaims();
         String userId = claims.get("userId").asString();
-        user = userService.findUserById(userId);
+        user = userTokenService.getById(userId);
 
         return user;
 
     }
+
+//    public SysUserTokenEntity getUser(String token) {
+//
+//        DecodedJWT jwt = JWT.decode(token);
+//
+//        SysUserTokenEntity user = new SysUserTokenEntity();
+//        Map<String, Claim> claims = jwt.getClaims();
+//        String userId = claims.get("userId").asString();
+//        user = userTokenService.getById(userId);
+//
+//        return user;
+//
+//    }
 
 
     public void setClaims(Map<String, String> claims) {
@@ -567,8 +588,7 @@ public class JWTService {
         this.secret = secret;
     }
 
-
-    public  String getToken(SysUser user) {
+    public String getToken(SysUserTokenEntity user) {
 
         String token = null;
         try {
@@ -579,7 +599,7 @@ public class JWTService {
                     // 发行者
                     .withIssuer("")
                     // 自定义属性
-                    .withClaim("userId", user.getId())
+                    .withClaim("userId", user.getId().toString())
                     // 签发时间
                     .withIssuedAt(new Date(currentTime))
                     // 唯一id
@@ -588,21 +608,21 @@ public class JWTService {
                     .withExpiresAt(expiresAt)
                     // 使用了HMAC256加密算法。
                     .sign(Algorithm.HMAC256(secret));
-        } catch (JWTCreationException exception){
+        } catch (JWTCreationException exception) {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
         return token;
     }
 
-
     /**
      * 验证token
+     *
      * @param token
      * @return
      */
-    public  Boolean decryptToken(final String token) {
-        if (token == null){
+    public Boolean decryptToken(final String token) {
+        if (token == null) {
             return false;
         }
         DecodedJWT jwt = null;
@@ -610,13 +630,11 @@ public class JWTService {
             // 使用了HMAC256加密算法。
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret))
                     .withIssuer("")
-                    .build(); //Reusable verifier instance
+                    .build();
             // 对字段进行校验，超时抛出JWTVerificationException类的子类InvalidClaimException
             jwt = verifier.verify(token);
-        } catch (JWTVerificationException exception){
+        } catch (Exception e) {
             return false;
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
         }
         return true;
     }
